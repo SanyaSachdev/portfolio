@@ -138,3 +138,4 @@ a:hover{color:var(--accent)}
 .dp-lrow{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid #ECEEF1}.dp-lrow span{display:flex;flex-direction:column}.dp-lrow b{font-weight:500!important}
 @keyframes pagein{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: no-preference){.page-in{animation:pagein .55s cubic-bezier(.2,.7,.2,1) both}}
+@media(max-width:760px){#journey .jhead{position:static!important;flex:1 1 100%!important}#jtrack>div.reveal{grid-template-columns:56px minmax(0,1fr)!important;column-gap:32px!important}#jtrack .jline{left:74px!important}#jtrack .jdot{left:-21px!important}}
