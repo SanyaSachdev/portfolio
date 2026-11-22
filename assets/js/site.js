@@ -76,6 +76,24 @@
   document.getElementById('deck-prev').addEventListener('click', function () { if (total) { cur = cur > 1 ? cur - 1 : total; paint(); } });
   document.getElementById('deck-next').addEventListener('click', function () { if (total) { cur = cur < total ? cur + 1 : 1; paint(); } });
   deckReset = function (h, dk) { deckKey = Object.keys(DECKS).filter(function (k) { return k !== 'deck' && DECKS[k] === dk; })[0] || 'amazon'; total = dk.n; cur = 1; build(); paint(); };
+  /* Full-screen slide viewer: tap or click the slide to open; arrows, Escape and the close button work inside it. */
+  var fs = document.getElementById('deck-fs'), fsImg = document.getElementById('deck-fs-img');
+  function fsOpen() { if (!total || !fs) return; fsPaint(); fs.hidden = false; document.body.classList.add('fs-open'); fs.focus(); }
+  function fsClose() { if (!fs || fs.hidden) return; fs.hidden = true; document.body.classList.remove('fs-open'); }
+  function fsPaint() { if (!fs || !fsImg) return; fsImg.src = src(cur); fsImg.alt = 'Slide ' + cur + ' of ' + total; }
+  if (fs) {
+    stage.addEventListener('click', function (e) { if (e.target.closest('img')) fsOpen(); });
+    document.getElementById('deck-fs-close').addEventListener('click', fsClose);
+    document.getElementById('deck-fs-prev').addEventListener('click', function () { if (total) { cur = cur > 1 ? cur - 1 : total; paint(); fsPaint(); } });
+    document.getElementById('deck-fs-next').addEventListener('click', function () { if (total) { cur = cur < total ? cur + 1 : 1; paint(); fsPaint(); } });
+    document.addEventListener('keydown', function (e) {
+      if (fs.hidden) return;
+      if (e.key === 'Escape') fsClose();
+      else if (e.key === 'ArrowLeft') document.getElementById('deck-fs-prev').click();
+      else if (e.key === 'ArrowRight') document.getElementById('deck-fs-next').click();
+    });
+    window.addEventListener('hashchange', fsClose);
+  }
   document.querySelectorAll('[data-noop]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
   window.addEventListener('hashchange', route);
   route();
@@ -101,4 +119,21 @@
   }
   fit(); window.addEventListener('resize', fit); window.addEventListener('load', fit); window.addEventListener('hashchange', function () { setTimeout(fit, 80); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+
+/* 4. Mobile menu (phones only; the button is hidden by CSS on wider screens) ------- */
+(function () {
+  var bar = document.getElementById('topbar'), btn = document.getElementById('nav-menu-btn'), links = document.getElementById('nav-links');
+  if (!bar || !btn || !links) return;
+  function set(open) {
+    bar.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  btn.addEventListener('click', function () { set(!bar.classList.contains('menu-open')); });
+  links.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('click', function (e) { if (bar.classList.contains('menu-open') && !bar.contains(e.target)) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  window.addEventListener('hashchange', function () { set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 640) set(false); });
 })();

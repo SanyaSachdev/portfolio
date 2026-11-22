@@ -9,7 +9,7 @@ window.SITE = {
   /* About section: skill rows. Add a row by adding another { label, items } block. */
   skills: [
     {"label": "Product", "items": ["User research", "Design thinking", "Root cause analysis", "A/B testing", "Pricing", "PRD writing", "Problem solving", "Critical thinking"]},
-    {"label": "Tools", "items": ["SQL", "Python", "Data analysis", "Figma", "n8n", "Apps Script", "Claude Code", "LLMs & prompt engineering"]}
+    {"label": "Technical", "items": ["SQL", "Python", "Data analysis", "Figma", "n8n", "Apps Script", "Claude Code", "LLMs & prompt engineering"]}
   ],
 
   /*

@@ -27,7 +27,7 @@
   fill('case-study-cards', '\n' + (S.caseStudies || []).map(function (c) {
     var teardown = c.kind === 'teardown';
     return '<a href="#' + attr(c.id) + '" class="proj card reveal">\n' +
-      '<span class="card-img" style="aspect-ratio: 16 / 9; padding: 0"><img src="assets/slides/' + attr(c.id) + '-01.jpg" alt="Cover slide of the ' + attr(c.name) + (teardown ? ' teardown' : ' case study') + '" style="display: block; width: 100%; height: 100%; object-fit: cover"></span>\n' +
+      '<span class="card-img cs-img" style="padding: 0"><img src="assets/slides/' + attr(c.id) + '-01.jpg" alt="Cover slide of the ' + attr(c.name) + (teardown ? ' teardown' : ' case study') + '" style="display: block; width: 100%; height: 100%; object-fit: cover"></span>\n' +
       '<span class="card-body" style="padding: 18px 20px 20px; gap: 8px">\n' +
       '<span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6A625B">' + (teardown ? 'Teardown' : 'Case study') + '</span>\n' +
       '<span class="proj-title" style="font-family: \'Newsreader\', Georgia, serif; font-size: 24px; line-height: 1.2">' + esc(c.name) + '</span>\n' +
